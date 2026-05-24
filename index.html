@@ -2,9 +2,161 @@
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assajos Clínics en Oncologia</title>
+
+    <!-- Tipografia -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+        /* Variables de color */
+        :root {
+            --color-primary: #2A6EBB;
+            --color-secondary: #A8D1E7;
+            --color-accent: #C0392B;
+            --color-bg: #FFFFFF;
+            --color-bg-alt: #F7F9FC;
+            --color-text: #2D3748;
+            --color-text-secondary: #718096;
+        }
+
+        /* Reset i base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        /* Contenidor principal */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Seccions */
+        section {
+            padding: 80px 0;
+        }
+
+        section:nth-child(even) {
+            background-color: var(--color-bg-alt);
+        }
+
+        /* Títols */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+
+        /* Text */
+        p {
+            font-size: 1rem;
+            color: var(--color-text);
+            margin-bottom: 16px;
+            max-width: 700px;
+        }
+
+        .text-secondary {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Separador */
+        .divider {
+            width: 60px;
+            height: 4px;
+            background-color: var(--color-primary);
+            margin: 16px 0 32px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hola món!</h1>
+
+    <!-- SECCIÓ 1: INTRODUCCIÓ -->
+    <section id="intro">
+        <div class="container">
+            <h1>Assajos Clínics en Oncologia</h1>
+            <div class="divider"></div>
+            <p>
+                El càncer és una de les malalties amb major impacte a nivell mundial. 
+                Però, s'investiga en proporció a aquest impacte?
+            </p>
+            <p class="text-secondary">
+                Anàlisi de la relació entre els assajos clínics actuals i la incidència 
+                i mortalitat dels diferents tipus de càncer. Dades: ClinicalTrials.gov i WHO (2021–2026).
+            </p>
+        </div>
+    </section>
+
+    <!-- SECCIÓ 2: EL CÀNCER AL MÓN -->
+    <section id="cancer-mon">
+        <div class="container">
+            <h2>El càncer al món</h2>
+            <div class="divider"></div>
+            <p>Incidència i mortalitat global per tipus de càncer (2022).</p>
+            <div id="chart-dotplot"></div>
+        </div>
+    </section>
+
+    <!-- SECCIÓ 3: L'ACTIVITAT INVESTIGADORA -->
+    <section id="activitat">
+        <div class="container">
+            <h2>L'activitat investigadora</h2>
+            <div class="divider"></div>
+            <p>Nombre d'assajos clínics actius per tipus de càncer (2021–2026).</p>
+            <div id="chart-trials-bar"></div>
+            <div id="chart-trials-line"></div>
+        </div>
+    </section>
+
+    <!-- SECCIÓ 4: LA RELACIÓ CLAU -->
+    <section id="relacio">
+        <div class="container">
+            <h2>La relació clau</h2>
+            <div class="divider"></div>
+            <p>Existeix una relació entre la càrrega de la malaltia i la investigació?</p>
+            <div id="chart-bubble"></div>
+            <div id="chart-ratio-bar"></div>
+        </div>
+    </section>
+
+    <!-- SECCIÓ 5: PER QUÈ? -->
+    <section id="perque">
+        <div class="container">
+            <h2>Per què?</h2>
+            <div class="divider"></div>
+            <p>Explorant possibles explicacions: finançament i demografia.</p>
+            <div id="chart-funding"></div>
+            <div id="chart-heatmap"></div>
+        </div>
+    </section>
+
 </body>
 </html>
