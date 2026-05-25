@@ -13,6 +13,8 @@ const tooltip = d3.select("body")
 
 d3.csv("data/final_dataset_agg.csv").then(function(data) {
 
+    console.log(Object.keys(data[0]));
+
     // Convertir columnes numèriques de text a número
     data.forEach(function(d) {
         d.total_incidence = +d.total_incidence;
@@ -24,7 +26,7 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
     console.log("Nombre de files:", data.length);
 
     // Dimensions i marges
-    const margin = { top: 20, right: 30, bottom: 40, left: 200 };
+    const margin = { top: 20, right: 30, bottom: 40, left: 250 };
     const width = 900 - margin.left - margin.right;
     const height = 600 - margin.top - margin.bottom;
 
@@ -49,48 +51,78 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
 
     // Escala X - valors numèrics
     const x = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.total_incidence)])
+        .domain([0, 2500000])
         .range([0, width]);
 
     console.log("Escales creades!");
 
     // Eix Y - esquerra
     svg.append("g")
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(y))
+        .selectAll("text")
+        .style("font-size", "13px");
 
     // Eix X - baix
     svg.append("g")
         .attr("transform", `translate(0, ${height})`)
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x)
+            .ticks(5)
+            .tickFormat(d => d3.format(".2s")(d).replace("G", "B"))
+        );
 
     console.log("Eixos creats!");
 
+    function calcularValors(data) {
+        const male = document.getElementById("check-male").checked;
+        const female = document.getElementById("check-female").checked;
+        const age019 = document.getElementById("check-0-19").checked;
+        const age2064 = document.getElementById("check-20-64").checked;
+        const age65 = document.getElementById("check-65").checked;
+
+        return data.map(d => {
+            let incidencia = 0;
+            let mortalitat = 0;
+
+            if (male && age019)  { incidencia += +d.inc_m_0_19_number  || 0; mortalitat += +d.mor_m_0_19_number  || 0; }
+            if (male && age2064) { incidencia += +d.inc_m_20_64_number  || 0; mortalitat += +d.mor_m_20_64_number  || 0; }
+            if (male && age65)   { incidencia += +d.inc_m_65_85_number || 0; mortalitat += +d.mor_m_65_85_number || 0; }
+            if (female && age019)  { incidencia += +d.inc_f_0_19_number  || 0; mortalitat += +d.mor_f_0_19_number  || 0; }
+            if (female && age2064) { incidencia += +d.inc_f_20_64_number  || 0; mortalitat += +d.mor_f_20_64_number  || 0; }
+            if (female && age65)   { incidencia += +d.inc_f_65_85_number || 0; mortalitat += +d.mor_f_65_85_number || 0; }
+
+            return { ...d, incidencia, mortalitat };
+        });
+    }
+
+    // Calcular valors inicials
+    let dataCalculada = calcularValors(data);
+
     // Línies connectores
-    svg.selectAll(".line-mortality-incidence")
-        .data(data)
+    const lines = svg.selectAll(".line-mortality-incidence")
+        .data(dataCalculada)
         .enter()
         .append("line")
-            .attr("x1", d => x(d.total_incidence))
+            .attr("x1", d => x(d.incidencia))
             .attr("y1", d => y(d.cancer_type_ca) + y.bandwidth() / 2)
-            .attr("x2", d => x(d.total_mortality))
+            .attr("x2", d => x(d.mortalitat))
             .attr("y2", d => y(d.cancer_type_ca) + y.bandwidth() / 2)
             .attr("stroke", "#A8D1E7")
             .attr("stroke-width", 2);
 
     // Cercles d'incidència
-    svg.selectAll(".dot-incidence")
-        .data(data)
+    const dotsInc = svg.selectAll(".dot-incidence")
+        .data(dataCalculada)
         .enter()
         .append("circle")
             .attr("class", "dot-incidence")
-            .attr("cx", d => x(d.total_incidence))
+            .attr("cx", d => x(d.incidencia))
             .attr("cy", d => y(d.cancer_type_ca) + y.bandwidth() / 2)
             .attr("r", 6)
             .attr("fill", "#2A6EBB")
             .on("mouseover", function(event, d) {
                     tooltip
                         .style("opacity", 1)
-                        .html(`<strong>${d.cancer_type_ca}</strong><br>Incidència: ${d3.format(",")(d.total_incidence)}`);
+                        .html(`<strong>${d.cancer_type_ca}</strong><br>Incidència: ${d3.format(",")(d.incidencia)}`);
                 })
                 .on("mousemove", function(event) {
                     tooltip
@@ -102,19 +134,19 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
                 });
 
     // Cercles de mortalitat
-    svg.selectAll(".dot-mortality")
-        .data(data)
+    const dotsMor = svg.selectAll(".dot-mortality")
+        .data(dataCalculada)
         .enter()
         .append("circle")
             .attr("class", "dot-mortality")
-            .attr("cx", d => x(d.total_mortality))
+            .attr("cx", d => x(d.mortalitat))
             .attr("cy", d => y(d.cancer_type_ca) + y.bandwidth() / 2)
             .attr("r", 6)
             .attr("fill", "#C0392B")
             .on("mouseover", function(event, d) {
                     tooltip
                         .style("opacity", 1)
-                        .html(`<strong>${d.cancer_type_ca}</strong><br>Mortalitat: ${d3.format(",")(d.total_mortality)}`);
+                        .html(`<strong>${d.cancer_type_ca}</strong><br>Mortalitat: ${d3.format(",")(d.mortalitat)}`);
                 })
                 .on("mousemove", function(event) {
                     tooltip
@@ -126,6 +158,30 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
                 });
     
     console.log("Figures creades")
+
+    // Funcio per actualitzar el grafic quan canvia la seleccio
+    function actualitzar() {
+        dataCalculada = calcularValors(data);
+
+        lines
+            .data(dataCalculada)
+            .attr("x1", d => x(d.incidencia))
+            .attr("x2", d => x(d.mortalitat));
+
+        dotsInc
+            .data(dataCalculada)
+            .attr("cx", d => x(d.incidencia));
+        
+        dotsMor
+            .data(dataCalculada)
+            .attr("cx", d => x(d.mortalitat));
+        
+        console.log("Incidència pulmó:", dataCalculada.find(d => d["Cancer Types"] === "Trachea, bronchus and lung").incidencia);
+        console.log("Total incidència pulmó:", data.find(d => d["Cancer Types"] === "Trachea, bronchus and lung").total_incidence);
+    }
+
+    // Escoltar canvis als checkboxes
+    d3.selectAll("input[type=checkbox]").on("change", actualitzar);
 
     // Llegenda
     const legend = svg.append("g")

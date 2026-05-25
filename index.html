@@ -121,6 +121,36 @@
             <h2>El càncer al món</h2>
             <div class="divider"></div>
             <p>Incidència i mortalitat global per tipus de càncer (2022).</p>
+            <!-- Filtres -->
+            <div id="filtres-dotplot" style="
+            background-color: #F7F9FC;
+            border: 1px solid #A8D1E7;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: inline-block;">
+            <div style="margin-bottom: 10px;">
+                <span style="font-weight: 600; color: #2D3748; margin-right: 12px;">Sexe:</span>
+                <label style="margin-right: 16px; color: #2D3748;">
+                    <input type="checkbox" id="check-male" checked> Masculí
+                </label>
+                <label style="color: #2D3748;">
+                    <input type="checkbox" id="check-female" checked> Femení
+                </label>
+            </div>
+            <div>
+                <span style="font-weight: 600; color: #2D3748; margin-right: 12px;">Edat:</span>
+                <label style="margin-right: 16px; color: #2D3748;">
+                    <input type="checkbox" id="check-0-19" checked> 0-19
+                </label>
+                <label style="margin-right: 16px; color: #2D3748;">
+                    <input type="checkbox" id="check-20-64" checked> 20-64
+                </label>
+                <label style="color: #2D3748;">
+                    <input type="checkbox" id="check-65" checked> 65+
+                </label>
+            </div>
+        </div>
             <div id="chart-dotplot"></div>
         </div>
     </section>
