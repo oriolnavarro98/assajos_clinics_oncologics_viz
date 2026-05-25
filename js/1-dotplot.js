@@ -13,8 +13,6 @@ const tooltip = d3.select("body")
 
 d3.csv("data/final_dataset_agg.csv").then(function(data) {
 
-    console.log(Object.keys(data[0]));
-
     // Convertir columnes numèriques de text a número
     data.forEach(function(d) {
         d.total_incidence = +d.total_incidence;
@@ -182,8 +180,6 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
             .duration(500)
             .attr("cx", d => x(d.mortalitat));
         
-        console.log("Incidència pulmó:", dataCalculada.find(d => d["Cancer Types"] === "Trachea, bronchus and lung").incidencia);
-        console.log("Total incidència pulmó:", data.find(d => d["Cancer Types"] === "Trachea, bronchus and lung").total_incidence);
     }
 
     // Escoltar canvis als checkboxes
