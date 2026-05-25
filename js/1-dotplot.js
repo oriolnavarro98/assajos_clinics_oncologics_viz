@@ -165,15 +165,21 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
 
         lines
             .data(dataCalculada)
+            .transition()
+            .duration(500)
             .attr("x1", d => x(d.incidencia))
             .attr("x2", d => x(d.mortalitat));
 
         dotsInc
             .data(dataCalculada)
+            .transition()
+            .duration(500)
             .attr("cx", d => x(d.incidencia));
         
         dotsMor
             .data(dataCalculada)
+            .transition()
+            .duration(500)
             .attr("cx", d => x(d.mortalitat));
         
         console.log("Incidència pulmó:", dataCalculada.find(d => d["Cancer Types"] === "Trachea, bronchus and lung").incidencia);
