@@ -162,8 +162,28 @@
             <div class="divider"></div>
             <p>Nombre d'assajos clínics actius per tipus de càncer (2021–2026).</p>
             <div id="chart-trials-bar"></div>
-
-            <div id="chart-trials-line"></div>
+            <div style="margin-top: 24px; margin-bottom: 12px;">
+                <button id="btn-count" style="
+                    background-color: #2A6EBB;
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    margin-right: 8px;
+                    font-family: 'Inter', sans-serif;
+                ">Per any</button>
+                <button id="btn-acumulat" style="
+                    background-color: #F7F9FC;
+                    color: #2D3748;
+                    border: 1px solid #A8D1E7;
+                    padding: 8px 16px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-family: 'Inter', sans-serif;
+                ">Acumulat</button>
+            </div>
+            <div id="chart-trials-line" style="margin-left: 190px;"></div>
         </div>
     </section>
 
@@ -188,8 +208,9 @@
             <div id="chart-heatmap"></div>
         </div>
     </section>
-    
+
 <script src="js/1-dotplot.js"></script>
 <script src="js/2-assajos-bar.js"></script>
+<script src="js/3-assajos-any.js"></script>
 </body>
 </html>
