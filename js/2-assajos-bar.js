@@ -75,4 +75,19 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
             .attr("width", d => x(d.unique_trials))
             .attr("height", y.bandwidth())
             .attr("fill", "#2A6EBB")
+            .on("mouseover", function(event, d) {
+                    tooltip
+                        .style("opacity", 1)
+                        .html(`<strong>${d.cancer_type_ca}</strong><br>Nombre d'assajos clinics: ${d3.format(",")(d.unique_trials)}`);
+            })
+            .on("mousemove", function(event) {
+                tooltip
+                    .style("left", (event.pageX + 12) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", function() {
+                tooltip.style("opacity", 0);
+            });
+    
+    console.log("Figures creades")
 });
