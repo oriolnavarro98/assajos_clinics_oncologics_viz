@@ -90,7 +90,7 @@ Promise.all([
     const legendHeight = 300;
 
     const legendSvg = svg.append("g")
-        .attr("transform", `translate(${width - 40}, ${height / 2 - legendHeight / 2})`);
+        .attr("transform", `translate(${width + 5}, ${height / 2 - legendHeight / 2})`);
 
     // Gradient vertical
     const defs = svg.append("defs");
