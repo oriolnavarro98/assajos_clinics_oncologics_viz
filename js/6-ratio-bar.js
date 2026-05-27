@@ -151,4 +151,30 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
             .style("border", "1px solid #A8D1E7");
         actualitzarRatio();
     });
+
+    // Càncers exclusius per sexe
+    const MASCULINS = ["Pròstata", "Testicles", "Penis"];
+    const FEMENINS = ["Càncer de mama", "Coll uterí", "Cos uterí", "Ovaris", "Vagina", "Vulva"];
+
+    function actualitzarHighlight() {
+        const masculins = document.getElementById("check-masculins").checked;
+        const femenins = document.getElementById("check-femenins").checked;
+
+        svg.selectAll(".barres_assajos")
+            .attr("fill", function(d) {
+                if (!masculins && !femenins) return "#2A6EBB";
+                if (masculins && MASCULINS.includes(d.cancer_type_ca)) return "#2A6EBB";
+                if (femenins && FEMENINS.includes(d.cancer_type_ca)) return "#C0392B";
+                return "#A8D1E7";
+            })
+            .attr("opacity", function(d) {
+                if (!masculins && !femenins) return 1;
+                if (masculins && MASCULINS.includes(d.cancer_type_ca)) return 1;
+                if (femenins && FEMENINS.includes(d.cancer_type_ca)) return 1;
+                return 0.3;
+            });
+    }
+
+    d3.select("#check-masculins").on("change", actualitzarHighlight);
+    d3.select("#check-femenins").on("change", actualitzarHighlight);
 });
