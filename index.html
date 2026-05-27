@@ -194,29 +194,43 @@
             <h2>La relació clau</h2>
             <div class="divider"></div>
             <p>Existeix una relació entre la càrrega de la malaltia i la investigació?</p>
-            <div id="chart-bubble"></div>
-                <div style="margin-top: 40px;">
-                    <div style="margin-bottom: 12px;">
-                        <button id="btn-incidencia" style="
-                            background-color: #2A6EBB;
-                            color: white;
-                            border: none;
-                            padding: 8px 16px;
-                            border-radius: 4px;
-                            cursor: pointer;
-                            margin-right: 8px;
-                            font-family: 'Inter', sans-serif;
-                        ">Per incidència</button>
-                        <button id="btn-mortalitat" style="
-                            background-color: #F7F9FC;
-                            color: #2D3748;
-                            border: 1px solid #A8D1E7;
-                            padding: 8px 16px;
-                            border-radius: 4px;
-                            cursor: pointer;
-                            font-family: 'Inter', sans-serif;
-                        ">Per mortalitat</button>
+            <div style="display: flex; gap: 24px; align-items: flex-start;">
+                <div id="chart-bubble"></div>
+                <div style="
+                    background-color: #F7F9FC;
+                    border: 1px solid #A8D1E7;
+                    border-radius: 8px;
+                    padding: 16px;
+                    min-width: 200px;
+                    max-height: 500px;
+                    overflow-y: auto;
+                ">
+                    <p style="font-weight: 600; color: #2D3748; margin-bottom: 12px; font-size: 13px;">Tipus de càncer</p>
+                    <div id="cancer-checklist"></div>
                 </div>
+            </div>            
+            <div style="margin-top: 40px;">
+                <div style="margin-bottom: 12px;">
+                    <button id="btn-incidencia" style="
+                        background-color: #2A6EBB;
+                        color: white;
+                        border: none;
+                        padding: 8px 16px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        margin-right: 8px;
+                        font-family: 'Inter', sans-serif;
+                    ">Per incidència</button>
+                    <button id="btn-mortalitat" style="
+                        background-color: #F7F9FC;
+                        color: #2D3748;
+                        border: 1px solid #A8D1E7;
+                        padding: 8px 16px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-family: 'Inter', sans-serif;
+                    ">Per mortalitat</button>
+            </div>
             <div id="chart-ratio-bar"></div>
         </div>
         </div>
@@ -230,7 +244,6 @@
             <div class="divider"></div>
             <p>Explorant possibles explicacions: finançament i demografia.</p>
             <div id="chart-financament"></div>
-            <div id="chart-heatmap"></div>
         </div>
     </section>
 

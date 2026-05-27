@@ -120,6 +120,19 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
             .attr("stroke", "white")
             .attr("stroke-width", 1)
             .on("mouseover", function(event, d) {
+                const seleccionats = [];
+                d3.selectAll("#cancer-checklist input").each(function() {
+                    if (this.checked) seleccionats.push(this.value);
+                });
+                
+                // Només destacar si no hi ha seleccionats o si aquest està seleccionat
+                if (seleccionats.length === 0 || seleccionats.includes(d.cancer_type_ca)) {
+                    d3.select(this)
+                        .attr("stroke", "#2A6EBB")
+                        .attr("stroke-width", 2)
+                        .attr("opacity", 1);
+                }
+
                 tooltip
                     .style("opacity", 1)
                     .html(`
@@ -128,21 +141,86 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
                         Mortalitat: ${d3.format(",")(d.total_mortality)}<br>
                         Assajos: ${d3.format(",")(d.unique_trials)}
                     `);
-                d3.select(this)
-                    .attr("stroke", "#2A6EBB")
-                    .attr("stroke-width", 2)
-                    .attr("opacity", 1);
             })
             .on("mousemove", function(event) {
                 tooltip
                     .style("left", (event.pageX + 12) + "px")
                     .style("top", (event.pageY - 28) + "px");
             })
-            .on("mouseout", function() {
+            .on("mouseout", function(event, d) {
+                const seleccionats = [];
+                d3.selectAll("#cancer-checklist input").each(function() {
+                    if (this.checked) seleccionats.push(this.value);
+                });
+
+                if (seleccionats.length === 0) {
+                    d3.select(this)
+                        .attr("opacity", 0.6)
+                        .attr("fill", "#2A6EBB")
+                        .attr("stroke", "white")
+                        .attr("stroke-width", 1);
+                } else if (seleccionats.includes(d.cancer_type_ca)) {
+                    d3.select(this)
+                        .attr("opacity", 1)
+                        .attr("fill", "#C0392B")
+                        .attr("stroke", "#C0392B")
+                        .attr("stroke-width", 2);
+                } else {
+                    d3.select(this)
+                        .attr("opacity", 0.15)
+                        .attr("fill", "#2A6EBB")
+                        .attr("stroke", "white")
+                        .attr("stroke-width", 1);
+                }
                 tooltip.style("opacity", 0);
-                d3.select(this)
-                    .attr("stroke", "white")
-                    .attr("stroke-width", 1)
-                    .attr("opacity", 0.6);
             });
+
+    // Generar checkboxes dinàmicament
+    const checklist = d3.select("#cancer-checklist");
+
+    data.sort((a, b) => a.cancer_type_ca.localeCompare(b.cancer_type_ca))
+        .forEach(d => {
+            const label = checklist.append("label")
+                .style("display", "block")
+                .style("margin-bottom", "6px")
+                .style("font-size", "12px")
+                .style("color", "#2D3748")
+                .style("cursor", "pointer");
+
+            label.append("input")
+                .attr("type", "checkbox")
+                .attr("value", d.cancer_type_ca)
+                .style("margin-right", "6px")
+                .on("change", function() {
+                    const seleccionats = [];
+                    d3.selectAll("#cancer-checklist input").each(function() {
+                        if (this.checked) seleccionats.push(this.value);
+                    });
+
+                    if (seleccionats.length === 0) {
+                        // Cap seleccionat: tots normals
+                        d3.selectAll(".bubble")
+                            .attr("opacity", 0.6)
+                            .attr("fill", "#2A6EBB")
+                            .attr("stroke", "white")
+                            .attr("stroke-width", 1);
+                    } else {
+                        // Difuminar tots i destacar els seleccionats
+                        d3.selectAll(".bubble")
+                            .attr("opacity", 0.15)
+                            .attr("fill", "#2A6EBB")
+                            .attr("stroke", "white")
+                            .attr("stroke-width", 1);
+
+                        d3.selectAll(".bubble")
+                            .filter(d => seleccionats.includes(d.cancer_type_ca))
+                            .attr("opacity", 1)
+                            .attr("fill", "#C0392B")
+                            .attr("stroke", "#C0392B")
+                            .attr("stroke-width", 2);
+                    }
+                });
+
+            label.append("span").text(d.cancer_type_ca);
+        });
 });
