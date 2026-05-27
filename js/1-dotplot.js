@@ -183,7 +183,7 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
     }
 
     // Escoltar canvis als checkboxes
-    d3.selectAll("input[type=checkbox]").on("change", actualitzar);
+    d3.selectAll("#filtres-dotplot input[type=checkbox]").on("change", actualitzar);
 
     // Llegenda
     const legend = svg.append("g")

@@ -9,7 +9,7 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
     data = data.filter(d => d.trials_per_100k_incidence > 0);
 
     // verificacio
-    console.log("Dades carregades:", data.lenght);
+    console.log("Dades carregades:", data.length);
     console.log("Top 5: ", data.sort((a, b) => b.trials_per_100k_incidence - a.trials_per_100k_incidence).slice(0, 5).map(d => d.cancer_type_ca + ": " + d.trials_per_100k_incidence));
 
     // dimensions i marges

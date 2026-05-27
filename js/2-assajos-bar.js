@@ -6,7 +6,7 @@ d3.csv("data/final_dataset_agg.csv").then(function(data) {
     });
 
     // verificacio
-    console.log("Dades assajos carregades:", data.lenght);
+    console.log("Dades assajos carregades:", data.length);
     console.log("Top 5: ", data.sort((a, b) => b.unique_trials - a.unique_trials).slice(0, 5).map(d => d.cancer_type_ca + ": " + d.unique_trials));
 
     // dimensions i marges
