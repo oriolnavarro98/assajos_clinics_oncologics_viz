@@ -9,8 +9,8 @@ d3.csv("data/final_dataset.csv").then(function(data) {
         d.year = +d["Start Date"].substring(0, 4);
     });
 
-    // Verificar els anys disponibles
-    const anys = [...new Set(data.map(d => d.year))].sort();
+    // Verificar els anys disponibles i filtrar any 2026
+    const anys = [...new Set(data.map(d => d.year))].sort().filter(a => a < 2026);
     console.log("Anys disponibles:", anys);
 
     // agrupar per any i tipus de cancer
@@ -101,7 +101,7 @@ d3.csv("data/final_dataset.csv").then(function(data) {
     svg.append("g")
         .attr("transform", `translate(0, ${height})`)
         .call(d3.axisBottom(x)
-            .ticks(6)
+            .tickValues(anys)
             .tickFormat(d3.format("d"))
     )
     .selectAll("text")
