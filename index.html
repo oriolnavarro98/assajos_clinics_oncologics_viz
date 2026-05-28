@@ -95,6 +95,12 @@
             background-color: var(--color-primary);
             margin: 16px 0 32px 0;
         }
+        
+        svg {
+            display: block;
+            margin: 0 auto;
+        }
+
     </style>
 </head>
 <body>
@@ -102,16 +108,24 @@
     <!-- SECCIÓ 1: INTRODUCCIÓ -->
     <section id="intro">
         <div class="container">
-            <h1>Assajos Clínics en Oncologia</h1>
-            <div class="divider"></div>
-            <p>
-                El càncer és una de les malalties amb major impacte a nivell mundial. 
-                Però, s'investiga en proporció a aquest impacte?
-            </p>
-            <p class="text-secondary">
-                Anàlisi de la relació entre els assajos clínics actuals i la incidència 
-                i mortalitat dels diferents tipus de càncer. Dades: ClinicalTrials.gov i WHO (2021–2026).
-            </p>
+            <h1>Càncer, recerca i la seva relació</h1>
+                <div class="divider"></div>
+                <p>
+                    Actualment el càncer es la segona causa principal de mort a nivell mundial, afectant anualment a 10 milions de persones, segons l'organització
+                    mundial de la salut. Degut a això, empreses farmacèutiques, centres de recerca i investigació, universitats públiques i privades, destinen cada any
+                    esforços per trobar cures per aquesta malaltia.
+                </p>
+                <p>
+                    Segons xifres del Cancer Research Institue, hi ha més de 200 tipus de càncer diferents, amb major i menor impacte. Degut a això,
+                    es pertinent preguntar-se si destinem els recursos d'investigació de manera proporcional a aquest impacte? 
+                    Els assajos clínics, que són la pedra angular del desenvolupament de nous tractaments, ja que permeten comprovar la seva seguretat i efectivitat,
+                    es distribueixen de manera equitativa entre els diferents tipus de càncer?
+                </p>
+                <p class="text-secondary">
+                    En aquest estudi analitzem 14.780 assajos clínics en oncologia, iniciats entre el gener del 2021 i l'abril del 2026, extrets de la base de dades
+                    ClinicalTrials.gov, i veurem com es relacionen amb els nivells d'incidència i mortalitat global de l'any 2022, de 32 tipus de càncer, obtinguts 
+                    de la base de dades del Global Cancer Observatory, de l'organització mundial de la salut (OMS).
+                </p>
         </div>
     </section>
 
@@ -120,7 +134,21 @@
         <div class="container">
             <h2>El càncer al món</h2>
             <div class="divider"></div>
-            <p>Incidència i mortalitat global per tipus de càncer (2022).</p>
+            <p>
+                El primer pas abans d'analitzar la investigació, es entendre l'impacte real de la malaltia. 
+                El gràfic següent mostra els nivells d'incidència i mortalitat global en nombre de casos, 
+                per a cada tipus de càncer l'any 2022. La distància entre els dos punts revela la letalitat: 
+                com més separats estan, més diferència hi ha entre els nous casos i les morts.
+            </p>
+            <p class="text-secondary">
+                El càncer de pulmó, mama i colorectal lideren en nombre de casos, però el pulmó destaca 
+                especialment per l'alta mortalitat en proporció a la seva incidència. El càncer de mama, en canvi, te una incidencia
+                elevada, però el nivell de mortalitat es menor. Una situació similar la trobem amb el càncer de tiroide, que mostra una 
+                incidència elevada però una mortalitat molt baixa, indicant un pronòstic favorable.
+                <br><br> 
+                Fes servir els filtres per explorar com varien les dades segons el sexe i el grup d'edat.
+            </p>
+            <h3>Incidència i mortalitat global per tipus de càncer (2022).</h3>
             <!-- Filtres -->
             <div id="filtres-dotplot" style="
             background-color: #F7F9FC;
@@ -160,7 +188,17 @@
         <div class="container">
             <h2>L'activitat investigadora</h2>
             <div class="divider"></div>
-            <p>Nombre d'assajos clínics actius per tipus de càncer (2021–2026).</p>
+            <p>
+                Un cop contextualitzat l'impacte de cada un dels tipus de càncer, seguint la classificació de la OMS, analitzem l'activitat investigadora. 
+                El següent gràfic mostra el nombre total d'assajos clínics iniciats entre el gener del 2021 
+                i l'abril del 2026 per a cada un dels tipus de càncer. A priori, els tres tipus de cancer amb major incidencia, 
+                vistos anteriorment (càncer de pulmó, mama i colorectal), 
+                encapçalen també aquest rànquing, reflectint en part la seva alta prevalença.
+            </p>
+            <p class="text-secondary">
+                Desplaçat per sobre de cada barra, per veure el nombre exacte d'assajos clinics iniciat dins l'interval de temps, per a un tipus concret.
+            </p>
+            <h3>Nombre d'assajos clínics actius per tipus de càncer (2021–2026).</h3>
             <div id="chart-trials-bar"></div>
             <div style="margin-top: 24px; margin-bottom: 12px;">
                 <button id="btn-count" style="
@@ -260,6 +298,17 @@
             <div class="divider"></div>
             <p>Explorant possibles explicacions: finançament i demografia.</p>
             <div id="chart-financament"></div>
+        </div>
+    </section>
+
+    <!-- SECCIÓ 6: FONTS -->
+    <section id="fonts">
+        <div class="container">
+            <h2>Fonts de dades</h2>
+            <div class="divider"></div>
+            <p><strong>Assajos clínics:</strong> ClinicalTrials.gov — National Institutes of Health (NIH). Assajos interventionals en oncologia iniciats entre gener 2021 i abril 2026.</p>
+            <p><strong>Incidència i mortalitat:</strong> Global Cancer Observatory (GCO) — World Health Organization (WHO). Dades de 2022.</p>
+            <p class="text-secondary">Visualització creada per Oriol Navarro Pons. Assginatura de Visualització de dades del Màster en Ciència de Dades de la UOC, 2026.</p>
         </div>
     </section>
 
